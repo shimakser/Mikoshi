@@ -1,5 +1,5 @@
 # Java Software Engineer Road Map
-[]()
+
 ---
 
 ## Оглавление
@@ -34,25 +34,27 @@
 [Virtual threads](docs/concurrency/virtual-threads.md)
 
 ### Spring Framework
+[Transactions in Spring](docs/spring/transactional.md)
 
 ### Tests
+[]()
 
 ### Databases
-1. [CAP-теорема]().
-2. [Selecting database]()
-3. [Annotation @Transactional, Propagation]()
+1. [CAP-теорема](docs/db/cap.md).
+2. [Database normalization](docs/db/normalization.md)
+3. [Selecting database](docs/db/selecting-db.md)
+4. [Hibernate](docs/db/hibernate.md)
     #### SQL Databases
-      1. [Normalization]()
-      2. [Basic SQL commands]()
-      3. [ACID, Isolation]()
-      4. [Optimizing DB queries]() 
-      5. [Indexes]() 
-      5. [Optimistic & Pessimistic Locking]() 
-      5. [MVCC, Vacuum]() 
+      1. [Basic SQL commands](docs/db/basic-sql.md)
+      2. [ACID, Isolation](docs/db/acid.md)
+      3. [Optimizing DB queries](docs/db/optimize-query.md) 
+      4. [Indexes](docs/db/indexes.md)
+      5. [Optimistic & Pessimistic Locking](docs/db/optimistic-pisimistic-locking.md) 
+      6. [MVCC, Vacuum](docs/db/mvcc-vacuum.md) 
     #### NoSQL Databases
-      1. [MongoDB]()
-      2. [Apache Casandra]()
-   #### Hibernate
+      1. [NoSQL, BASE](docs/db/nosql.md)
+      2. [MongoDB](docs/db/mongodb.md)
+      3. [Apache Casandra](docs/db/apache-casandra.md)
 
 ### Security
 1. [JWT](docs/security/1-jwt.md)
@@ -64,9 +66,10 @@
 2. [RabbitMQ](docs/message-brokers/2-rabbitmq.md)
 
 ### Caches
-1. [Spring Cache](docs/cache/1-spring-cache.md)
-2. [Redis](docs/cache/2-redis.md)
-3. [Hazelcast](docs/cache/3-hazelcast.md)
+1. [LRU cache](docs/cache/lru-cache.md)
+1. [Spring Cache](docs/cache/spring-cache.md)
+2. [Redis](docs/cache/redis.md)
+3. [Hazelcast](docs/cache/hazelcast.md)
 
 ### Patterns
 1. [GRASP, SOLID](docs/patterns/1-grasp-solid.md)
@@ -81,5 +84,7 @@
 3. [Search types]()
 
 ### Networks
+[]()
 
 ### System Design
+[]()

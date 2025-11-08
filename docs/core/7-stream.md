@@ -5,20 +5,23 @@
 ## Методы 
 
 1. stream.parallel()
-- Использует ForkJoinPool.commonPool, который по умолчанию использует N потоков, где N = количество доступных процессоров (обычно = Runtime.getRuntime().availableProcessors()).
+    
+    Использует ForkJoinPool.commonPool, который по умолчанию использует N потоков, где N = количество доступных процессоров (обычно = Runtime.getRuntime().availableProcessors()).
 
 2. reduce(...)
-- Агрегирует элементы в одно значение.
+    
+    Агрегирует элементы в одно значение.
   Integer sum = list.stream().reduce(0, Integer::sum);
   Optional<Integer> sum = list.stream().reduce(Integer::sum);
 
 3. groupingBy(...)
-- Группирует по ключу
-  Map<String, Long> countByCountry =
+    
+    Группирует по ключу Map<String, Long> countByCountry =
   people.stream().collect(Collectors.groupingBy(Person::getCountry, Collectors.counting()));
 
 4. partitioningBy(Predicate)
-- Разделяет на две группы: true / false.
+    
+    Разделяет на две группы: true / false.
   Map<Boolean, List<Person>> partition =
   people.stream().collect(Collectors.partitioningBy(Person::isAdult));
 

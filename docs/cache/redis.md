@@ -103,23 +103,24 @@ Redis Cluster.
 
 1. `@CacheConfig` — на уровне класса, позволяет задать общие параметры для всех методов.
 
-- cacheNames — Кэш по умолчанию для всех методов.
-- keyGenerator — Кастомный генератор ключей.
-- cacheManager.
-- cacheResolver — Альтернатива cacheManager.
+   - cacheNames — Кэш по умолчанию для всех методов.
+   - keyGenerator — Кастомный генератор ключей.
+   - cacheManager.
+   - cacheResolver — Альтернатива cacheManager.
 
 2. `@Cacheable`
 
-- value — имя кэша,
-- key — SpEL-выражение для ключа,
-- unless — не кэшировать, если условие истинно,
-- condition — кэшировать только если условие истинно.
+   - value — имя кэша,
+   - key — SpEL-выражение для ключа,
+   - unless — не кэшировать, если условие истинно,
+   - condition — кэшировать только если условие истинно.
 
 3. `@CachePut` — Всегда вызывает метод и обновляет кэш.
+
 4. `@CacheEvict` — Удаляет элемент из кэша:
 
-- allEntries = true — удаляет все элементы из кэша,
-- beforeInvocation = true — удаляет до вызова метода.
+   - allEntries = true — удаляет все элементы из кэша,
+   - beforeInvocation = true — удаляет до вызова метода.
 
 ---
 
