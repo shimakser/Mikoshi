@@ -29,12 +29,24 @@
 9. [Reflection API]()
 
 ### Concurrency and Multithreading
-[CountDownLatch, CyclicBarrier](docs/concurrency/countdownlatch-cyclicbarrier.md)
-[Semaphore](docs/concurrency/semaphore.md)
-[Virtual threads](docs/concurrency/virtual-threads.md)
+1. [Basic concepts](docs/concurrency/basic-concepts.md)
+2. [Threads](docs/concurrency/threads.md)
+3. [Synchronization](docs/concurrency/synchronized.md)
+4. [Concurrency collections](docs/concurrency/concurrency-collections.md)
+5. [Volatile & Atomic](docs/concurrency/volatile-atomic.md)
+6. [Thread Pool](docs/concurrency/thread-pool.md)
+7. [Fork Join Pool](docs/concurrency/fork-join-pool.md)
+8. [CountDownLatch, CyclicBarrier](docs/concurrency/countdownlatch-cyclicbarrier.md)
+9. [Semaphore](docs/concurrency/semaphore.md)
+10. [Virtual threads](docs/concurrency/virtual-threads.md)
 
 ### Spring Framework
-[Transactions in Spring](docs/spring/transactional.md)
+1. [Spring: Beans, Patterns, Conditions](docs/spring/spring-beans-ioc-di.md)
+2. [Spring Boot](docs/spring/spring-boot.md)
+3. [Spring Security](docs/spring/spring-security.md)
+4. [Spring Cloud](docs/spring/spring-cloud.md)
+5. [Spring AOP](docs/spring/spring-aop.md)
+6. [Transactions in Spring](docs/spring/transactional.md)
 
 ### Tests
 []()
@@ -79,12 +91,20 @@
 5. [Microservices patterns](docs/patterns/5-microservices-patterns.md)
 
 ### Algorithms
-1. [Big O]()
-2. [Sorting]()
-3. [Search types]()
+1. [Big O](docs/algorithms/big-o.md)
+2. [Collections and Data structure](docs/algorithms/collections-and-data-structure.md)
+2. [Sorting](docs/algorithms/sotring-alg.md)
+3. [Search types](docs/algorithms/search-types.md)
+
+### DevOps & Cloud
+1. [Dockerfile networks](docs/devops-cloud/dockerfile-networks.md)
 
 ### Networks
 []()
 
 ### System Design
 []()
+
+### Management
+1. [Task estimation](docs/management/task-estimation.md)
+2. [How to Lead a Team](docs/management/lead-team.md)

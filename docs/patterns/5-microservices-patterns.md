@@ -33,9 +33,152 @@
 
 ## Transactional Outbox
 
+### Идея
+
+Transactional Outbox — это асинхронная альтернатива 2PC.
+Вместо единой распределённой транзакции, мы разделяем обновление данных и публикацию событий, но **гарантируем, что они логически атомарны**.
+
+### Основной принцип
+
+1. В рамках локальной транзакции (одной БД):
+   - обновляется бизнес-таблица (например, orders);
+   - добавляется запись в outbox-таблицу (order_created_event).
+2. Отдельный event relay (фоновый процесс / Spring Scheduler / Debezium) читает из outbox и отправляет сообщения в Kafka/RabbitMQ.
+3. После успешной отправки — помечает запись как "processed".
+
+### Схема
+
+
+    Client → Service → DB (Atomic Transaction)
+                        ├── insert into orders
+                        └── insert into outbox
+    
+    Background Worker → Kafka
+
+### Пример реализации
+
+Таблица outbox_event:
+
+    CREATE TABLE outbox_event (
+        id UUID PRIMARY KEY,
+        aggregate_type VARCHAR(50),
+        aggregate_id VARCHAR(50),
+        payload JSONB,
+        created_at TIMESTAMP,
+        processed BOOLEAN DEFAULT false
+    );
+
+Java-код:
+
+
+    @Transactional
+    public void createOrder(Order order) {
+        orderRepository.save(order);
+        OutboxEvent event = new OutboxEvent(
+            UUID.randomUUID(),
+            "Order",
+            order.getId().toString(),
+            toJson(order),
+            Instant.now(),
+            false
+        );
+        outboxRepository.save(event);
+    }
+
+Event relay
+
+
+    @Scheduled(fixedDelay = 5000)
+    public void publishEvents() {
+        List<OutboxEvent> events = outboxRepository.findUnprocessed();
+        for (OutboxEvent e : events) {
+            kafkaTemplate.send("order-created", e.getAggregateId(), e.getPayload());
+            e.setProcessed(true);
+            outboxRepository.save(e);
+        }
+    }
+
+### Почему это работает
+
+- БД и outbox записываются в одной транзакции → атомарность.
+- Публикация событий отделена → надёжность.
+- Даже при сбое:
+  - если сервис упал после коммита, фон отправит сообщение позже;
+  - если упал до коммита — outbox не сохранится, значит, и событие не будет опубликовано.
+
+### Преимущества
+
+- Не требует XA-драйверов.
+- Простая реализация через обычную БД.
+- Хорошо масштабируется.
+- Совместим с event-driven архитектурами (Kafka, RabbitMQ).
+- Можно легко добавить retry / dead-letter очередь.
+
+### Недостатки
+
+| Недостаток                    | Описание                                                                    |
+| :---------------------------- | :-------------------------------------------------------------------------- |
+| **Дубликаты событий**         | Возможна повторная отправка — нужно делать idempotency на стороне консюмера |
+| **Задержка**                  | Публикация не мгновенная — зависит от частоты poller-а                      |
+| **Увеличение нагрузки на БД** | Outbox требует хранения и очистки таблицы                                   |
+
 ---
 
 ## 2pc
+
+### Идея
+
+2PC — это протокол распределённой транзакции, где несколько ресурсов (например, база данных и очередь сообщений) участвуют в едином атомарном коммите.
+
+Используется координирующий компонент — **Transaction Coordinator**.
+
+### Этапы работы
+
+Фаза 1: Prepare (Голосование)
+1. Координатор рассылает всем участникам команду prepare.
+2. Каждый участник:
+   - выполняет все операции, но не коммитит;
+   - записывает данные в redo log;
+   - сообщает координатору: “готов к коммиту” (vote commit) или “не готов” (vote abort).
+Фаза 2: Commit / Rollback
+3. Если все участники готовы — координатор шлёт commit.
+4. Если хотя бы один отказал — всем посылается rollback.
+
+### Пример
+
+- Service A обновляет заказ в PostgreSQL.
+- Service B пишет событие в JMS (или Kafka, участвующую в JTA).
+- JTA (Java Transaction API) через XA-драйверы связывает оба ресурса.
+
+
+    @Stateless
+    public class OrderService {
+        @Resource
+        private UserTransaction utx;
+    
+        public void process() {
+            utx.begin();
+            db.save(order);
+            jms.send(orderCreatedEvent);
+            utx.commit(); // оба ресурса коммитятся атомарно
+        }
+    }
+
+### Преимущества
+
+- Атомарность — гарантируется консистентность между всеми участниками.
+- Простая логика для разработчика — “всё или ничего”.
+
+### Недостатки (и почему 2PC почти не используют в микросервисах)
+
+| Проблема                                  | Описание                                                   |
+| :---------------------------------------- | :--------------------------------------------------------- |
+| **Медленный**                             | Все участники ждут, пока координатор соберёт ответы        |
+| **Хрупкий**                               | Если координатор падает между фазами — блокировка ресурсов |
+| **Не масштабируется**                     | Требует XA-драйверов и тесной связи между системами        |
+| **Не совместим с event-driven системами** | Kafka, RabbitMQ, HTTP не поддерживают XA                   |
+| **“Tight coupling”**                      | Все сервисы становятся зависимы от единого координатора    |
+
 
 ---
 
