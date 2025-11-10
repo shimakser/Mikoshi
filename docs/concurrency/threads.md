@@ -5,11 +5,69 @@
 ---
 
 ### Способы создания потока
-1. ClassName extends Thread#Override_run().
-   Запустить: new ClassName#start().
-2. ClassName impliments Runnable#Override_run().
-   Запустить: new Thread(new ClassName()).start().
+1. **extends Thread** and **Override run()**.
+
+       public class MyThread extends Thread {
+           @Override
+           public void run() {
+               System.out.println("Поток работает (Thread): " + Thread.currentThread().getName());
+           }
+       }
+    _Запустить:_
+
+       MyThread thread = new MyThread();
+       thread.start();
+
+2. **impliments Runnable** and **Override run()**.
+
+       public class MyRunnable implements Runnable {
+           @Override
+           public void run() {
+               System.out.println("Поток работает (Runnable): " + Thread.currentThread().getName());
+           }
+       }
+    _Запустить:_
+
+       Thread thread = new Thread(new MyRunnable());
+       thread.start();
 3. Через ExecutorService, используя utility-класс Executors.
+   
+- _Executor_ — это базовый интерфейс для запуска задач в разных потоках. Он определяет всего один метод:
+
+
+    Executor executor = new Executor() {
+       @Override
+       public void execute(Runnable command) {
+          new Thread(command).start();
+       }
+    };
+    
+    executor.execute(() -> System.out.println("Task executed in a separate thread"));
+
+- _ExecutorService_ — расширяет функциональность Executor и предоставляет более продвинутые возможности для управления пулом потоков, завершения задач и ожидания завершения всех задач. Основные методы включают:
+  - _submit(Callable<T> task)_ — возвращает объект Future, который позволяет получить результат задачи или узнать статус выполнения.
+  - _shutdown()_ — корректно завершает работу сервиса, прекращая принимать новые задачи, но давая завершиться уже запущенным.
+- _invokeAll(), invokeAny()_ — позволяют выполнить коллекцию задач и получить результаты.
+
+      ExecutorService executorService = Executors.newFixedThreadPool(2); // создаем пул из 2 потоков
+
+      Callable<String> task = () -> {
+          Thread.sleep(2000); // симуляция долгой задачи
+          return "Task result";
+      };
+
+      Future<String> future = executorService.submit(task);
+
+      try {
+          String result = future.get(); // ожидаем завершения задачи и получаем результат
+          System.out.println("Task result: " + result);
+      } catch (Exception e) {
+          e.printStackTrace();
+      } finally {
+          executorService.shutdown(); // завершаем работу ExecutorService
+      }
+
+---
 
 ### Демоны
 Это потоки, которое работают в фоновом  режиме и не гарантируют что они завершатся. Тоеть если все потоки завершились, то поток демон просто

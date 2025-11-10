@@ -52,7 +52,7 @@
 []()
 
 ### Databases
-1. [CAP-теорема](docs/db/cap.md).
+1. [CAP-теорема](docs/db/cap.md)
 2. [Database normalization](docs/db/normalization.md)
 3. [Selecting database](docs/db/selecting-db.md)
 4. [Hibernate](docs/db/hibernate.md)
@@ -90,7 +90,6 @@
 3. [Structural  patterns](docs/patterns/3-structural.md)
 4. [Behavioral patterns](docs/patterns/4-behavioral.md)
 5. [Microservices patterns](docs/patterns/5-microservices-patterns.md)
-6. [Load Balancer](docs/patterns/load-balancer.md)
 
 ### Algorithms
 1. [Big O](docs/algorithms/big-o.md)
@@ -112,15 +111,15 @@
 3. [Observability: Metrics, Logs, Tracing](docs/system-design/observability.md)
 4. [Fault Tolerance & Recovery: Leader Election, Data Consistency, Distributed Transactions, PITR / Backup / Restore](docs/system-design/fault-tolerance-and-recovery.md)
 
-### Mantagement
+### Management
 1. [Task estimation](docs/management/task-estimation.md)
 2. [How to Lead a Team](docs/management/lead-team.md)
 
 ### Architecture of computer systems
 _Source:_ [Carnegie Mellon University Undergraduate Computer Architecture.](https://www.youtube.com/playlist?list=PL5PHm2jkkXmi5CxxI7b3JCL1TWybTDtKq)
-1. [Instruction Set Architecture](docs/architecture-of-computer-systems/.md)
-2. [Microarchitecture](docs/architecture-of-computer-systems/.md)
-3. [Pipelines](docs/architecture-of-computer-systems/.md)
+1. [Instruction Set Architecture](docs/architecture-of-computer-systems/instruction-set-architecture.md)
+2. [Microarchitecture](docs/architecture-of-computer-systems/microarchitecture.md)
+3. [Pipelines](docs/architecture-of-computer-systems/pipelines.md)
 
 ### Operating Systems
 _Source:_ [UC Berkeley CS162 Operating Systems](https://www.youtube.com/playlist?list=PLF2K2xZjNEf97A_uBCwEl61sdxWVP7VWC)

@@ -2,42 +2,194 @@
 
 ---
 
-### Быстрая сортировка
+## Быстрая сортировка
 
 Выбирает из массива элемент, называемый опорным. Это может быть любой из элементов массива. Сравнивает все остальные элементы с опорным и переставить их в массиве так, чтобы разбить массив на два непрерывных отрезка, следующих друг за другом: «элементы меньшие опорного», «равные и большие». Для отрезков «меньших» и «больших» значений выполняет рекурсивно ту же последовательность операций, пока длина отрезка больше единицы. Сложность алгоритма: в среднем O(n log n), в худшем O(n^2).
 
+        public void quickSort(int[] array) {
+            quickSort(array, 0, array.length - 1);
+        }
+
+        public void quickSort(int[] array, int start, int end) {
+            if (start < end) {
+                int partitionIndex = partition(array, start, end);
+                quickSort(array, start, partitionIndex - 1);
+                quickSort(array, partitionIndex, end);
+            }
+        }
+
+        public int partition(int[] array, int left, int right) {
+            int pivot = array[(left + right) / 2];
+
+            while (left <= right) {
+                while (array[left] < pivot) {
+                    left++;
+                }
+                while (array[right] > pivot) {
+                    right--;
+                }
+
+                if (left <= right) {
+                    int temp = array[left];
+                    array[left] = array[right];
+                    array[right] = temp;
+                    left++;
+                    right--;
+                }
+            }
+
+            return left; // это граница между левым и правым подмассивами
+        }
+
 ---
 
-### Сортировка пузырьком
+## Сортировка пузырьком
 
 Простейший, но эффективен он лишь для небольших массивов. Сложность: O(n^2). Алгоритм состоит из повторяющихся проходов по сортируемому массиву. За каждый проход элементы последовательно сравниваются попарно и, если порядок в паре неверный, выполняется обмен элементов. Проходы по массиву повторяются N-1 раз или до тех пор, пока на очередном проходе не окажется, что обмены больше не нужны, что означает — массив отсортирован. При каждом проходе алгоритма по внутреннему циклу, очередной наибольший элемент массива ставится на своё место в конце массива рядом с предыдущим «наибольшим элементом», а наименьший элемент перемещается на одну позицию к началу массива.
 
+    public void bubbleSort(int[] array) {
+        int length = array.length;
+
+        while (length > 1) {
+            for (int i = 0; i < length - 1; i++) {
+                if (array[i] > array[i + 1]) {
+                    int temp = array[i];
+                    array[i] = array[i + 1];
+                    array[i + 1] = temp;
+                }
+            }
+            length--;
+        }
+
+        System.out.println(Arrays.toString(array));
+    }
+
 ---
 
-### Шейкерная сортировка
+## Шейкерная сортировка
 
 Аналогична пузырьковой, но при движении от конца массива к началу минимальный элемент «всплывает» на первую позицию, а максимальный элемент сдвигается только на одну позицию вправо. Кроме того, если при движении по части массива перестановки не происходят, то эта часть массива уже отсортирована и, следовательно, её можно исключить из рассмотрения. Сложность: O(n^2).
 
 ---
 
-### Сортировка выбором
+## Сортировка выбором
 
 Поиск наименьшего или наибольшего элемента и помещение его в начало или конец упорядоченного списка. Сложность: O(n^2).
 
+    public void selectionSort(int[] array) {
+        int length = array.length;
+
+        for (int i = 0; i < length - 1; i++) {
+            int minIndex = i;
+
+            for (int j = i + 1; j < length; j++) {
+                if (array[minIndex] > array[j]) {
+                    minIndex = j;
+                }
+            }
+
+            if (minIndex != i) {
+                int temp = array[i];
+                array[i] = array[minIndex];
+                array[minIndex] = temp;
+            }
+        }
+    }
+
+    public void reverseSelectionSort(int[] array) {
+        int length = array.length;
+
+        for (int i = 0; i < length; i++) {
+            int maxIndex = i;
+
+            for (int j = i + 1; j < length; j++) {
+                if (array[maxIndex] < array[j]) {
+                    maxIndex = j;
+                }
+            }
+
+            if (maxIndex != i) {
+                int temp = array[i];
+                array[i] = array[maxIndex];
+                array[maxIndex] = temp;
+            }
+        }
+    }
+
 ---
 
-### Сортировка вставками
+## Сортировка вставками
 
 Элементы входной последовательности просматриваются по одному, и каждый новый поступивший элемент размещается в подходящее место среди ранее упорядоченных элементов. Сложность: O(n^2).
 
+    public void insertionSort(int[] array) {
+        int length = array.length;
+
+        for (int i = 1; i < length; i++) {
+            int sortedIndex = i - 1;
+            while (sortedIndex >= 0 && array[sortedIndex] > array[sortedIndex + 1]) {
+                int temp = array[sortedIndex];
+                array[sortedIndex] = array[sortedIndex + 1];
+                array[sortedIndex + 1] = temp;
+                sortedIndex--;
+            }
+        }
+    }
+
 ---
 
-### Гномья сортировка
+## Гномья сортировка
 
 Похожа на сортировку вставками, но в отличие от последней перед вставкой на нужное место происходит серия обменов, как в сортировке пузырьком. Сложность: O(n^2).
 
 ---
 
-### Сортировка слиянием
+## Сортировка слиянием
 
 Упорядочивает списки (или другие структуры данных, доступ к элементам которых можно получать только последовательно, например — потоки) в определённом порядке. Сначала делим список на кусочки (по 1 элементу), затем сравниваем каждый элемент с соседним, сортируем и объединяем. В итоге, все элементы отсортированы и объединены вместе. Сложность алгоритма: O(n log n).
+
+    public void mergeSort(int[] array) {
+        if (array == null || array.length < 2) {
+            return;
+        }
+        mergeSort(array, 0, array.length - 1);
+    }
+
+    private void mergeSort(int[] array, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+        int mid = left + (right - left) / 2;
+        mergeSort(array, left, mid);
+        mergeSort(array, mid + 1, right);
+        merge(array, left, mid, right);
+    }
+
+    private void merge(int[] array, int left, int mid, int right) {
+        int[] temp = new int[right - left + 1];
+
+        int i = left;      // указатель на левую часть
+        int j = mid + 1;   // указатель на правую часть
+        int k = 0;         // указатель на temp
+
+        while (i <= mid && j <= right) {
+            if (array[i] <= array[j]) {
+                temp[k++] = array[i++];
+            } else {
+                temp[k++] = array[j++];
+            }
+        }
+
+        // копируем оставшиеся элементы левой части
+        while (i <= mid) {
+            temp[k++] = array[i++];
+        }
+
+        // копируем оставшиеся элементы правой части
+        while (j <= right) {
+            temp[k++] = array[j++];
+        }
+
+        // копируем обратно в исходный массив
+        System.arraycopy(temp, 0, array, left, temp.length);
+    }
