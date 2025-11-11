@@ -106,10 +106,45 @@
 3. [RESTful, gRPC](docs/networks/restful-grpc.md)
 
 ### System Design
-1. [Scalability: Scaling, Partitioning, Sharding, Caching, Data Locality, Load Balancing](docs/system-design/scalability.md)
-2. [Reliability & Resilience: Failover, Replication, Backpressure, Rate Limiting, Circuit Breaker, Graceful Degradation, Distributed Coordination, Health Checks](docs/system-design/reliability-resilience.md)
+1. [**Scalability**](docs/system-design/scalability/scalability.md)
+
+    1.1 [Scaling](docs/system-design/scalability/scaling.md)
+    
+    1.2 [Partitioning](docs/system-design/scalability/partitioning.md)
+    
+    1.3 [Sharding](docs/system-design/scalability/sharding.md)
+        
+    1.4 [Caching](docs/system-design/scalability/caching.md)
+        
+    1.5 [Data Locality](docs/system-design/scalability/data-locality.md)
+        
+    1.6 [Load Balancing](docs/system-design/scalability/load-balancing.md)
+2. [**Reliability & Resilience**](docs/system-design/reliability-resilience/reliability-resilience.md)
+
+   1.1 [Failover & Replication](docs/system-design/reliability-resilience/failover-replication.md)
+
+   1.2 [Backpressure](docs/system-design/reliability-resilience/backpressure.md)
+
+   1.3 [Rate Limiting](docs/system-design/reliability-resilience/rate-limiting.md)
+
+   1.4 [Circuit Breaker](docs/system-design/reliability-resilience/circuit-breaker.md)
+
+   1.5 [Graceful Degradation](docs/system-design/reliability-resilience/graceful-degradation.md)
+
+   1.6 [Distributed Coordination](docs/system-design/reliability-resilience/distributed-coordination.md)
+
+   1.7 [Health Checks](docs/system-design/reliability-resilience/health-checks.md)
 3. [Observability: Metrics, Logs, Tracing](docs/system-design/observability.md)
-4. [Fault Tolerance & Recovery: Leader Election, Data Consistency, Distributed Transactions, PITR / Backup / Restore](docs/system-design/fault-tolerance-and-recovery.md)
+4. **Fault Tolerance & Recovery**
+
+   1.1 [Leader Election](docs/system-design/fault-tolerance-and-recovery/leader-election.md)
+
+   1.2 [Data Consistency](docs/system-design/fault-tolerance-and-recovery/data-consistency.md)
+
+   1.3 [Distributed Transactions](docs/system-design/fault-tolerance-and-recovery/distributed-transactions.md)
+
+   1.4 [PITR / Backup / Restore](docs/system-design/fault-tolerance-and-recovery/pitr-backup-restore.md)
+
 
 ### Management
 1. [Task estimation](docs/management/task-estimation.md)
