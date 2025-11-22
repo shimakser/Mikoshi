@@ -25,8 +25,8 @@
 5. [Functional interfaces](docs/core/5-functional-interface.md)
 6. [Optional](docs/core/6-optional.md)
 7. [Stream API](docs/core/7-stream.md)
-8. [Files, NIO.2]()
-9. [Reflection API]()
+8. [Files, NIO.2](docs/core/files.md)
+9. [Reflection API](docs/core/reflection.md)
 
 ### Concurrency and Multithreading
 1. [Basic concepts](docs/concurrency/basic-concepts.md)
@@ -99,6 +99,7 @@
 
 ### DevOps & Cloud
 1. [Dockerfile networks](docs/devops-cloud/dockerfile-networks.md)
+2. [Deployment strategies](docs/devops-cloud/deployment-strategies.md)
 
 ### Networks
 1. [IP, DNS and Networks](docs/networks/ip-dns-networks.md)
@@ -134,7 +135,7 @@
    1.6 [Distributed Coordination](docs/system-design/reliability-resilience/distributed-coordination.md)
 
    1.7 [Health Checks](docs/system-design/reliability-resilience/health-checks.md)
-3. [Observability: Metrics, Logs, Tracing](docs/system-design/observability.md)
+3. [**Observability**: Metrics, Logs, Tracing](docs/system-design/observability.md)
 4. **Fault Tolerance & Recovery**
 
    1.1 [Leader Election](docs/system-design/fault-tolerance-and-recovery/leader-election.md)

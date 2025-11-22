@@ -1,10 +1,9 @@
 # Classloaders
 
----
-
 Это часть JVM, которая загружает .class-файлы (байткод) в память при запуске программы. Он превращает файл на диске в объект Class.
 
 ## Основные виды
+
 1. Bootstrap Class Loader
    - _Загружает:_ базовые классы Java (из rt.jar, если Java 8, или java.base в Java 9+), например java.lang.String, java.util.List.
    - Не написан на Java — встроен в JVM (на C++).
