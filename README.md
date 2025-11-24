@@ -107,16 +107,14 @@
 3. [RESTful, gRPC](docs/networks/restful-grpc.md)
 
 ### System Design
-1. [**Scalability**](docs/system-design/scalability/scalability.md)
-
+1. [**Scalability**](docs/system-design/scalability/scalability.md)<br>
     1.1 [Scaling](docs/system-design/scalability/scaling.md)<br>
     1.2 [Partitioning](docs/system-design/scalability/partitioning.md)<br>
     1.3 [Sharding](docs/system-design/scalability/sharding.md)<br>
     1.4 [Caching](docs/system-design/scalability/caching.md)<br>
     1.5 [Data Locality](docs/system-design/scalability/data-locality.md)<br>
     1.6 [Load Balancing](docs/system-design/scalability/load-balancing.md)
-2. [**Reliability & Resilience**](docs/system-design/reliability-resilience/reliability-resilience.md)
-
+2. [**Reliability & Resilience**](docs/system-design/reliability-resilience/reliability-resilience.md)<br>
    1.1 [Failover & Replication](docs/system-design/reliability-resilience/failover-replication.md)<br>
    1.2 [Backpressure](docs/system-design/reliability-resilience/backpressure.md)<br>
    1.3 [Rate Limiting](docs/system-design/reliability-resilience/rate-limiting.md)<br>
@@ -126,8 +124,7 @@
    1.7 [Distributed Coordination](docs/system-design/reliability-resilience/distributed-coordination.md)<br>
    1.8 [Health Checks](docs/system-design/reliability-resilience/health-checks.md)
 3. [**Observability**: Metrics, Logs, Tracing](docs/system-design/observability.md)
-4. **Fault Tolerance & Recovery**
-
+4. **Fault Tolerance & Recovery**<br>
    1.1 [Leader Election](docs/system-design/fault-tolerance-and-recovery/leader-election.md)<br>
    1.2 [Data Consistency](docs/system-design/fault-tolerance-and-recovery/data-consistency.md)<br>
    1.3 [Distributed Transactions](docs/system-design/fault-tolerance-and-recovery/distributed-transactions.md)<br>
