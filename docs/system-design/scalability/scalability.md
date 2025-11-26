@@ -21,12 +21,12 @@ _Как справляться с увеличением нагрузки?_
 ---
 
 ## Подразделы
-- [Scaling](docs/system-design/scalability/scaling.md)
-- [Partitioning](docs/system-design/scalability/partitioning.md)
-- [Sharding](docs/system-design/scalability/sharding.md)
-- [Caching](docs/system-design/scalability/caching.md)
-- [Data Locality](docs/system-design/scalability/data-locality.md)
-- [Load Balancing](docs/system-design/scalability/load-balancing.md)
+1. [Scaling](docs/system-design/scalability/scaling.md)
+2. [Partitioning](docs/system-design/scalability/partitioning.md)
+3. [Sharding](docs/system-design/scalability/sharding.md)
+4. [Caching](docs/system-design/scalability/caching.md)
+5. [Data Locality](docs/system-design/scalability/data-locality.md)
+6. [Load Balancing](docs/system-design/scalability/load-balancing.md)
 
 ---
 

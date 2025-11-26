@@ -1,128 +1,65 @@
-# Failover & Replication
-
----
-
-## Failover
-
-Это процесс автоматического или управляемого переключения нагрузки с отказавшего узла (primary/master) на резервный (standby/replica), чтобы сохранить доступность и целостность системы.
-Цель — минимизация RTO (Recovery Time Objective) и RPO (Recovery Point Objective) при сбоях.
-
-### Ключевые концепции
-
-#### Active–Passive
-
-- Active node обрабатывает трафик, Passive node простаивает, но постоянно синхронизируется.
-- При сбое активного узла происходит переключение (manual или automatic).
-- _Плюсы_: простота, предсказуемость состояния.
-- _Минусы_: неиспользуемые ресурсы, длительный failover при ручной активации.
-
-#### Active–Active
-
-- Все узлы активны и обслуживают запросы.
-- Каждый узел может стать "лидером" для части данных (partitioning/sharding).
-- _Плюсы_: высокая утилизация, быстрая реакция на сбой.
-- _Минусы_: конфликтующие обновления, необходимость strong conflict resolution (например, CRDT, last-write-wins, vector clocks).
-
-#### Standby Types
-
-- **Hot standby** — реплика получает изменения в реальном времени, готова к мгновенному переключению.
-- **Warm standby** — реплика синхронизируется периодически, запуск требует времени.
-- **Cold standby** — просто резервная машина, восстановление вручную.
-
-### Failover Detection & Coordination
-
-Ключевой вызов — **надёжно детектировать сбой и принять решение о переключении** без split-brain.
-
-- **Heartbeat monitoring**: периодические пинги между узлами.
-Инструменты: Keepalived, Pacemaker, ZooKeeper, Consul.
-- **Quorum-based failover**: решение принимается большинством узлов (majority vote).
-- **Fencing (STONITH)**: "Shoot The Other Node In The Head" — исключение старого лидера, чтобы не было двойного лидера.
-- **Consensus protocols**:
-  - Raft / Paxos**** — выбор лидера и согласование состояния кластера.
-  - _Пример_: в etcd или Zookeeper лидер выбирается через Raft, остальные фолловеры догоняют логи.
-
-### Failover Scenarios
-
-| Сценарий                 | Пример                        | Сложность                              |
-| ------------------------ | ----------------------------- | -------------------------------------- |
-| DB failover              | Primary → Replica             | Потеря транзакций при async репликации |
-| API failover             | LB перенаправляет трафик      | Session stickiness, кэш прогрев        |
-| Distributed job failover | Scheduler перевешивает задачи | Idempotency, job deduplication         |
-| Region-level failover    | AWS us-east-1 → eu-west-1     | Cross-region latency, DNS TTL          |
-
-### Split-Brain Problem
-
-Происходит, когда оба узла считают себя лидерами.
-_Причины_: сетевые задержки, partition, неправильная конфигурация quorum.
-
-_Решения_:
-- Quorum majority vote.
-- External consensus store (etcd, Consul, Zookeeper).
-- Witness node / arbiter для чётного числа реплик.
-- STONITH для гарантированного исключения старого лидера.
-
-### Metrics of Failover
-
-- **RTO (Recovery Time Objective)** — сколько времени система может быть недоступна.
-- **RPO (Recovery Point Objective)** — сколько данных можно потерять.
-- **MTTR (Mean Time To Recovery)** — среднее время восстановления.
-
----
-
-## Replication
+# Replication
 
 Поддержание нескольких копий одних и тех же данных в разных местах (узлах, регионах, ЦОДах) для повышения отказоустойчивости, доступности и скорости доступа.
 
-### Цели репликации
+---
+
+## Цели репликации
 
 - **High Availability (HA)**: при падении одной копии данные доступны с другой.
 - **Scalability**: чтения можно направлять на реплики.
 - **Durability**: снижает риск потери данных при аппаратных сбоях.
 - **Local Latency**: приближение данных к пользователю (edge replication).
 
-### Модели репликации
+---
 
-#### Синхронная репликация
+## Модели репликации
+
+### Синхронная репликация
 
 - Primary ждёт подтверждения от всех реплик перед подтверждением клиенту.
 - _Плюсы_: Strong consistency (no data loss).
 - _Минусы_: Высокая задержка, низкая доступность при lagging replicas.
 - _Примеры_: PostgreSQL synchronous commit, Galera Cluster, Spanner (TrueTime).
 
-#### Асинхронная репликация
+### Асинхронная репликация
 
 - Primary отвечает клиенту сразу, а реплики получают данные позже.
 - _Плюсы_: Высокая производительность и низкая латентность.
 - _Минусы_: Возможна потеря данных при сбое primary.
 - _Примеры_: MySQL asynchronous binlog replication, MongoDB secondaries.
 
-#### Полусинхронная (Semi-synchronous)
+### Полусинхронная (Semi-synchronous)
 
 - Primary ждёт подтверждения хотя бы от одной реплики.
 - _Компромисс_: повышенная надёжность без большой задержки.
 - _Пример_: MySQL semi-sync replication.
 
-### Направления репликации
+---
 
-#### Master–Slave (Primary–Replica)
+## Направления репликации
+
+### Master–Slave (Primary–Replica)
 
 - Только один узел принимает записи.
 - Реплики только для чтения.
 - _Проблемы_: failover требует переизбрания лидера, eventual consistency.
 
-#### Multi-Master (Master–Master)
+### Multi-Master (Master–Master)
 
 - Запись возможна на нескольких узлах.
 - Требует конфликт-резолюции (например, timestamp-based, CRDT).
 - _Примеры_: Cassandra, DynamoDB, Active–Active Redis Enterprise.
 
-#### Peer-to-Peer
+### Peer-to-Peer
 
 - Каждый узел равноправен.
 - Используется в DHT и P2P-сетях (например, Cassandra, Riak).
 - Репликация и консенсус выполняются через gossip-протоколы.
 
-### Репликация в распределённых системах
+---
+
+## Репликация в распределённых системах
 
 | Тип                | Примеры систем                  | Характеристики                               |
 | ------------------ | ------------------------------- | -------------------------------------------- |
@@ -131,7 +68,9 @@ _Решения_:
 | Incremental        | Kafka ISR (in-sync replicas)    | Репликация сообщений по offset               |
 | Quorum replication | Cassandra, DynamoDB             | Достижение согласованности через `R + W > N` |
 
-### Геораспределённая репликация (Geo-replication)
+---
+
+## Геораспределённая репликация (Geo-replication)
 
 - Репликация между регионами или датацентрами.
 - _Цель_: disaster recovery, latency locality.
@@ -142,7 +81,9 @@ _Решения_:
 - CockroachDB — MVCC + hybrid logical clocks.
 - DynamoDB Global Tables — conflict-free replication.
 
-### Проблемы и решения
+---
+
+## Проблемы и решения
 
 | Проблема              | Описание                             | Решения                                   |
 | --------------------- | ------------------------------------ | ----------------------------------------- |
@@ -152,7 +93,9 @@ _Решения_:
 | **Data loss**         | Отказ primary до синхронизации       | Semi-sync replication, synchronous commit |
 | **Network partition** | Потеря связи между регионами         | CAP trade-offs, eventual consistency      |
 
-### Итоговое сравнение моделей
+---
+
+## Итоговое сравнение моделей
 
 | Критерий     | Синхронная      | Асинхронная          | Полусинхронная  |
 | ------------ | --------------- | -------------------- | --------------- |
@@ -164,16 +107,14 @@ _Решения_:
 
 ---
 
-## Replication Topologies and Failover Architectures
+## Replication Topologies and Architectures
 
 ### 1. Single-Leader Replication (Primary–Replica)
 
 #### Схема
 
-
     Clients → [Primary] → Replicas
                         ↖ pull log / binlog
-
 
 #### Характеристики
 
@@ -201,9 +142,7 @@ _PostgreSQL, MySQL, MongoDB (Replica Set), Redis (Sentinel), Kafka controller._
 
 #### Схема
 
-
     Clients → [Leader A] ←→ [Leader B] ←→ [Leader C]
-
 
 #### Характеристики
 
@@ -242,7 +181,6 @@ _CouchDB, Cassandra, DynamoDB, Active–Active Redis, Git._
 
 #### Схема
 
-
     Clients → write to N replicas directly
 
 #### Принцип
@@ -254,7 +192,6 @@ _CouchDB, Cassandra, DynamoDB, Active–Active Redis, Git._
 - Для strong consistency: R + W > N.
 
 #### Пример
-
 
     N=3, W=2, R=2  →  Strong Consistency
 
@@ -277,7 +214,6 @@ _Amazon Dynamo, Cassandra, Riak, Voldemort._
 ### 4. Chain Replication
 
 #### Схема
-
 
     Head → Node 2 → Node 3 → Tail
 
@@ -307,7 +243,6 @@ _Microsoft FaRM, Ceph RADOS, ZooKeeper ZAB protocol._
 
 #### Схема
 
-
     Primary
     ↓
     Replica A → Replica B → Replica C
@@ -317,7 +252,7 @@ _Microsoft FaRM, Ceph RADOS, ZooKeeper ZAB protocol._
 - Реплики получают данные не только от primary, но и от других реплик.
 - Снижает нагрузку на primary при большом количестве узлов.
 
-#### Применение
+**Применение**
 
 - Подходит для глобальных систем (multi-region read replicas).
 - Например, реплика в Европе получает обновления из американской реплики, а не из primary.
@@ -355,55 +290,30 @@ _PostgreSQL cascading replication, MySQL relay slaves._
 
 _Raft (etcd, Consul, CockroachDB), Paxos (Google Chubby, Spanner), Zab (ZooKeeper)._
 
-### 7. Geo-Distributed Replication Topologies
+---
 
-#### Regional Leader (Federated)
+## Geo-Distributed Replication Topologies
+
+### Regional Leader (Federated)
 
 - Каждый регион имеет своего лидера.
 - Межрегиональная репликация асинхронная.
 - Запись идёт в локальный регион, глобальные данные догоняются позже.
 
-#### Full Mesh
+### Full Mesh
 
 - Все регионы реплицируют друг с другом.
 - Конфликтное разрешение через CRDT.
 - Высокая устойчивость, но дорого по трафику.
 
-#### Hub-and-Spoke
+### Hub-and-Spoke
 
 - Один центральный регион (“hub”), остальные регионы (“spokes”) синхронизируются с ним.
 - Упрощает архитектуру, но hub становится SPOF.
 
-### Failover Architectures
+---
 
-#### Manual Failover
-
-- Администратор вручную переключает реплику.
-- Минимальные автоматизации.
-- _Минус_: длительный downtime.
-
-#### Semi-Automatic Failover
-
-- Мониторинг (Prometheus, Orchestrator, Sentinel) фиксирует сбой.
-- Реплика промотируется автоматически, но требует ручного вмешательства для DNS/Proxy.
-
-#### Full Automatic Failover
-
-- Consensus cluster (Zookeeper/etcd) выполняет выбор лидера.
-- DNS или load balancer автоматически перенаправляют трафик.
-- _Риск_: split-brain при сетевых проблемах.
-
-### Failover Decision & Election Algorithms
-
-| Алгоритм                             | Принцип                                             | Применение                    |
-| ------------------------------------ | --------------------------------------------------- | ----------------------------- |
-| **Raft**                             | Лидер, лог репликации, heartbeat, election timeout  | etcd, Consul, CockroachDB     |
-| **Paxos**                            | Majority agreement через prepare/accept             | Spanner, Chubby               |
-| **ZAB (ZooKeeper Atomic Broadcast)** | Лидер упорядочивает операции, follower подтверждают | ZooKeeper                     |
-| **Bully Algorithm**                  | Самый “сильный” (ID) узел становится лидером        | Старые распределённые системы |
-| **Gossip-based Election**            | Узлы обмениваются статусом, формируют консенсус     | Cassandra, Dynamo             |
-
-### Инструменты и практические реализации
+## Инструменты и практические реализации
 
 | Технология    | Топология                       | Failover механизм               |
 | ------------- | ------------------------------- | ------------------------------- |
@@ -621,6 +531,8 @@ _Raft (etcd, Consul, CockroachDB), Paxos (Google Chubby, Spanner), Zab (ZooKeepe
 - Google Spanner “bounded staleness” через TrueTime.
 - Cosmos DB поддерживает bounded staleness как отдельный consistency level.
 
+---
+
 ### Trade-offs Between Consistency Models
 
 | Модель            | Консистентность            | Доступность | Латентность | Типичные системы     |
@@ -630,6 +542,8 @@ _Raft (etcd, Consul, CockroachDB), Paxos (Google Chubby, Spanner), Zab (ZooKeepe
 | Causal            | Причинная                  | Средняя     | Средняя     | COPS, Cosmos DB      |
 | Read-your-writes  | Локальная для клиента      | Средняя     | Средняя     | MongoDB, DynamoDB    |
 | Eventual          | Слабая                     | Высокая     | Низкая      | Cassandra, DynamoDB  |
+
+---
 
 ### Consistency in Practice
 
@@ -643,3 +557,64 @@ _Raft (etcd, Consul, CockroachDB), Paxos (Google Chubby, Spanner), Zab (ZooKeepe
 | **Spanner**     | Global Strong                                         | TrueTime + Paxos                  |
 | **CockroachDB** | Strong                                                | Raft per range                    |
 | **Cosmos DB**   | 5 levels (Strong, Bounded, Causal, Session, Eventual) | Configurable API-level            |
+
+---
+
+## ISR (in-sync replicas)
+
+ISR = набор реплик, которые находятся “в синхроне” с лидером.
+
+Для каждого partition есть:
+- Leader replica
+- Followers
+- ISR subset — те из followers, которые догнали лидера по log end offset.
+
+_Пример:_
+
+    Partition P1:
+        Leader = Broker 1
+        Followers = Broker 2,3
+        ISR = {1,2,3}
+
+Если Broker 3 начинает отставать → он выпадает из ISR: `ISR = {1,2}`
+
+### Зачем ISR?
+
+ISR обеспечивает strong consistency модели Kafka.
+
+Запись считается committed только:
+- если replica = leader
+- и запись replicated в majority из ISR (по acks=all)
+
+_То есть:_ ISR определяет, кто может участвовать в commit quorum.
+
+### Как работает ISR под капотом
+
+#### Шаги
+
+1. Лидер получает сообщение → пишет в свой лог.
+2. Лидер делает append в followers через FETCH RPC.
+3. Когда каждый follower догнал leader offset → он считается in-sync.
+4. Лидер ведёт ISR-list локально и в ZooKeeper/KRaft.
+5. Commit происходит только если:
+   * acks=all
+   * запись replicated на все реплики в ISR
+
+#### Ключевые параметры
+
+* replica.lag.time.max.ms — максимум, сколько реплика может не отвечать
+* min.insync.replicas — минимальное количество ISR для commit
+* unclean.leader.election.enable — разрешать ли лидеров вне ISR (обычно NO)
+
+### Что происходит при сбоях
+
+#### Сбой follower-а
+
+* follower отстаёт → удаляется из ISR
+* но cluster продолжает работать
+
+#### Сбой лидера
+
+Kafka выбирает нового лидера среди реплик в ISR.
+
+Если ISR пустой → leader election невозможен (если unclean=false).

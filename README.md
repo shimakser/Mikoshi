@@ -114,21 +114,22 @@
     1.4 [Caching](docs/system-design/scalability/caching.md)<br>
     1.5 [Data Locality](docs/system-design/scalability/data-locality.md)<br>
     1.6 [Load Balancing](docs/system-design/scalability/load-balancing.md)
-2. [**Reliability & Resilience**](docs/system-design/reliability-resilience/reliability-resilience.md)<br>
-   1.1 [Failover & Replication](docs/system-design/reliability-resilience/failover-replication.md)<br>
-   1.2 [Backpressure](docs/system-design/reliability-resilience/backpressure.md)<br>
-   1.3 [Rate Limiting](docs/system-design/reliability-resilience/rate-limiting.md)<br>
-   1.4 [Circuit Breaker](docs/system-design/reliability-resilience/circuit-breaker.md)<br>
-   1.5 [Bulkhead](docs/system-design/reliability-resilience/bulkhead.md)<br>
-   1.6 [Graceful Degradation](docs/system-design/reliability-resilience/graceful-degradation.md)<br>
-   1.7 [Distributed Coordination](docs/system-design/reliability-resilience/distributed-coordination.md)<br>
-   1.8 [Health Checks](docs/system-design/reliability-resilience/health-checks.md)
+2. **Reliability & Resilience**<br>
+   2.1 [Failover](docs/system-design/reliability-resilience/failover.md)<br>
+   2.2 [Replication](docs/system-design/reliability-resilience/replication.md)<br>
+   2.3 [Backpressure](docs/system-design/reliability-resilience/backpressure.md)<br>
+   2.4 [Rate Limiting](docs/system-design/reliability-resilience/rate-limiting.md)<br>
+   2.5 [Circuit Breaker](docs/system-design/reliability-resilience/circuit-breaker.md)<br>
+   2.6 [Bulkhead](docs/system-design/reliability-resilience/bulkhead.md)<br>
+   2.7 [Graceful Degradation](docs/system-design/reliability-resilience/graceful-degradation.md)<br>
+   2.8 [Distributed Coordination](docs/system-design/reliability-resilience/distributed-coordination.md)<br>
+   2.9 [Health Checks](docs/system-design/reliability-resilience/health-checks.md)
 3. [**Observability**: Metrics, Logs, Tracing](docs/system-design/observability.md)
 4. **Fault Tolerance & Recovery**<br>
-   1.1 [Leader Election](docs/system-design/fault-tolerance-and-recovery/leader-election.md)<br>
-   1.2 [Data Consistency](docs/system-design/fault-tolerance-and-recovery/data-consistency.md)<br>
-   1.3 [Distributed Transactions](docs/system-design/fault-tolerance-and-recovery/distributed-transactions.md)<br>
-   1.4 [PITR / Backup / Restore](docs/system-design/fault-tolerance-and-recovery/pitr-backup-restore.md)<br>
+   4.1 [Leader Election](docs/system-design/fault-tolerance-and-recovery/leader-election.md)<br>
+   4.2 [Data Consistency](docs/system-design/fault-tolerance-and-recovery/data-consistency.md)<br>
+   4.3 [Distributed Transactions](docs/system-design/fault-tolerance-and-recovery/distributed-transactions.md)<br>
+   4.4 [PITR / Backup / Restore](docs/system-design/fault-tolerance-and-recovery/pitr-backup-restore.md)<br>
 
 ### Management
 1. [Task estimation](docs/management/task-estimation.md)
