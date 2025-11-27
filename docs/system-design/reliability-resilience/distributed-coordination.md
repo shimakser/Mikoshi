@@ -42,4 +42,27 @@
 * Configuration atomic broadcast
 * Failover management
 
+---
+
+## Leader Election
+
+---
+
+## Consensus
+
+---
+
+## Quorums
+
+---
+
+## Distributed Locks
+
+---
+
+## Membership & Heartbeat
+
+---
+
+## Fencing tokens
 

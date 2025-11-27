@@ -30,6 +30,19 @@
 
 ---
 
+## Split-Brain Problem
+
+Происходит, когда оба узла считают себя лидерами.
+_Причины_: сетевые задержки, partition, неправильная конфигурация quorum.
+
+_Решения_:
+- Quorum majority vote.
+- External consensus store (etcd, Consul, Zookeeper).
+- Witness node / arbiter для чётного числа реплик.
+- STONITH для гарантированного исключения старого лидера.
+
+---
+
 ## Failover Detection & Coordination
 
 Ключевой вызов — **надёжно детектировать сбой и принять решение о переключении** без split-brain.
@@ -52,19 +65,6 @@
 | API failover             | LB перенаправляет трафик      | Session stickiness, кэш прогрев        |
 | Distributed job failover | Scheduler перевешивает задачи | Idempotency, job deduplication         |
 | Region-level failover    | AWS us-east-1 → eu-west-1     | Cross-region latency, DNS TTL          |
-
----
-
-## Split-Brain Problem
-
-Происходит, когда оба узла считают себя лидерами.
-_Причины_: сетевые задержки, partition, неправильная конфигурация quorum.
-
-_Решения_:
-- Quorum majority vote.
-- External consensus store (etcd, Consul, Zookeeper).
-- Witness node / arbiter для чётного числа реплик.
-- STONITH для гарантированного исключения старого лидера.
 
 ---
 

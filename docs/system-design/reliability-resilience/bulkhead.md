@@ -125,7 +125,6 @@ _В Web-сервисах:_
 * SemaphoreBulkhead — ограничивает concurrency.
 * ThreadPoolBulkhead — выделенный thread pool + очередь.
 
-
     BulkheadConfig config = BulkheadConfig.custom()
         .maxConcurrentCalls(10)
         .maxWaitDuration(Duration.ofMillis(100))

@@ -46,7 +46,6 @@ _Минусы:_ нагрузка на DB при cache cold, race conditions пр
 
 _Пример псевдокода:_
 
-
     Object get(key) {
         Object v = cache.get(key);
         if (v != null) return v;
@@ -125,7 +124,7 @@ _Рекомендации:_
 Когда много клиентов одновременно попадают в промах и бьют по DB.
 
 _Контрмеры:_
-- Locking / request coalescing (см. выше).
+- Locking / request coalescing.
 - Randomized early expiration (jitter): TTL = baseTTL ± random to spread revalidations.
 - Leaky bucket / token bucket: ограничивать число одновременных revalidations.
 - Serve stale + async refresh (stale-while-revalidate).
@@ -182,22 +181,32 @@ _Решения:_
 
 Формула (упрощённо):
 
-
     required_memory = working_set_size * avg_object_size * (1 + overhead_factor)
+
 где overhead_factor = 0.2..0.5 в зависимости от реализации.
 
 ---
 
 ## Best practices
 
-1. Tiered caching: edge CDN → reverse proxy → distributed cache → local in-process cache (multi-level caching) — согласованность управлять через versioning и TTL.
-2. Cache negative results (short TTL).
-3. Use async refresh + stale-while-revalidate для тяжёлых вычислений.
-4. Prefer cache-aside для гибкости; read-through when you want centralised cache loading.
-5. Use outbox for invalidation events to keep DB and cache in-sync.
-6. Monitor hit ratio and evictions, react with capacity changes or policy tuning.
-7. Estimate working set before provisioning; чаще всего undersized cache хуже, чем отсутствие cache.
-8. Avoid caching sensitive data unencrypted; apply access controls.
+1. Всегда читать их кэша.
+   - Чтение из Redis/Hazelcast стоит на порядки дешевле по CPU, IO, network и latency, чем чтение из реляционной БД.
+   - Писать логику актуализации проще, чем бороться с перегрузкой DB.
+        
+        | Источник             | Латентность | Throughput    |
+        | -------------------- | ----------- | ------------- |
+        | Hazelcast near-cache | 0.03–0.2 ms | ~1M ops/s     |
+        | Redis                | 0.1–1 ms    | ~0.2–1M ops/s |
+        | Postgres             | 1–10 ms     | ~5k ops/s     |
+
+2. Tiered caching: edge CDN → reverse proxy → distributed cache → local in-process cache (multi-level caching) — согласованность управлять через versioning и TTL.
+3. Cache negative results (short TTL).
+4. Use async refresh + stale-while-revalidate для тяжёлых вычислений.
+5. Prefer cache-aside для гибкости; сквозное чтение, когда вам нужна централизованная загрузка кэша.
+6. Используйте исходящие сообщения для событий аннулирования, чтобы поддерживать синхронизацию базы данных и кэша.
+7. Контролируйте показатели результативности и evictions.
+8. Оцените рабочий набор перед предоставлением; чаще всего кэш меньшего размера хуже, чем отсутствие кэша.
+9. Избегайте кэширования конфиденциальных данных в незашифрованном виде; применять контроль доступа.
 
 ---
 

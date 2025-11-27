@@ -5,26 +5,26 @@
 ## Оглавление
 
 ### Java ecosystem, JVM
-1. [Java ecosystem](docs/ecosystem/1-ecosystem.md)
-2. [ClassLoaders](docs/ecosystem/2-classloaders.md)
-3. [Java memory model (JMM), String pool](docs/ecosystem/3-jmm.md)
-4. [Garbage collectors, References](docs/ecosystem/4-gc.md)
+1. [Java ecosystem](docs/ecosystem/ecosystem.md)
+2. [ClassLoaders](docs/ecosystem/classloaders.md)
+3. [Java memory model (JMM), String pool](docs/ecosystem/jmm.md)
+4. [Garbage collectors, References](docs/ecosystem/gc.md)
 
 ### ООП в Java
-1. [ООП](docs/oop/1-oop.md)
-2. [Виды классов](docs/oop/2-classes.md)
-3. [Модификаторы доступа, Ключевые слова](docs/oop/3-access-modifiers-packages.md)
-4. [Класс Object, Контракт `equals`/`hashCode`/`toString`, сравнение объектов](docs/oop/4-object-compare.md)
-5. [Иммутабельность vs мутабельность, защитное копирование](docs/oop/5-mutable-vs-immutable.md)
+1. [ООП](docs/oop/oop.md)
+2. [Виды классов](docs/oop/classes.md)
+3. [Модификаторы доступа, Ключевые слова](docs/oop/access-modifiers-packages.md)
+4. [Класс Object, Контракт `equals`/`hashCode`/`toString`, сравнение объектов](docs/oop/object-compare.md)
+5. [Иммутабельность vs мутабельность, защитное копирование](docs/oop/mutable-vs-immutable.md)
 
 ### Java Core
-1. [Exceptions](docs/core/1-exceptions.md)
-2. [Generics](docs/core/2-generics.md)
-3. [Collections](docs/core/3-collections.md)
-4. [Lambda](docs/core/4-lambda.md)
-5. [Functional interfaces](docs/core/5-functional-interface.md)
-6. [Optional](docs/core/6-optional.md)
-7. [Stream API](docs/core/7-stream.md)
+1. [Exceptions](docs/core/exceptions.md)
+2. [Generics](docs/core/generics.md)
+3. [Collections](docs/core/collections.md)
+4. [Lambda](docs/core/lambda.md)
+5. [Functional interfaces](docs/core/functional-interface.md)
+6. [Optional](docs/core/optional.md)
+7. [Stream API](docs/core/stream.md)
 8. [Files, NIO.2](docs/core/files.md)
 9. [Reflection API](docs/core/reflection.md)
 
@@ -70,13 +70,13 @@
       3. [Apache Casandra](docs/db/apache-casandra.md)
 
 ### Security
-1. [JWT](docs/security/1-jwt.md)
-2. [OAuth2](docs/security/2-oauth2.md)
-3. [HTTPS](docs/security/3-https.md)
+1. [JWT](docs/security/jwt.md)
+2. [OAuth2](docs/security/oauth2.md)
+3. [HTTPS](docs/security/https.md)
 
 ### Message brokers
-1. [Apache Kafka](docs/message-brokers/1-kafka.md)
-2. [RabbitMQ](docs/message-brokers/2-rabbitmq.md)
+1. [Apache Kafka](docs/message-brokers/kafka.md)
+2. [RabbitMQ](docs/message-brokers/rabbitmq.md)
 
 ### Caches
 1. [LRU cache](docs/cache/lru-cache.md)
@@ -85,11 +85,11 @@
 3. [Hazelcast](docs/cache/hazelcast.md)
 
 ### Patterns
-1. [GRASP, SOLID](docs/patterns/1-grasp-solid.md)
-2. [Creational patterns](docs/patterns/2-creational.md)
-3. [Structural  patterns](docs/patterns/3-structural.md)
-4. [Behavioral patterns](docs/patterns/4-behavioral.md)
-5. [Microservices patterns](docs/patterns/5-microservices-patterns.md)
+1. [GRASP, SOLID](docs/patterns/grasp-solid.md)
+2. [Creational patterns](docs/patterns/creational.md)
+3. [Structural  patterns](docs/patterns/structural.md)
+4. [Behavioral patterns](docs/patterns/behavioral.md)
+5. [Distributed Transactions](docs/patterns/distributed-transactions.md)
 
 ### Algorithms
 1. [Big O](docs/algorithms/big-o.md)
@@ -121,15 +121,14 @@
    2.4 [Rate Limiting](docs/system-design/reliability-resilience/rate-limiting.md)<br>
    2.5 [Circuit Breaker](docs/system-design/reliability-resilience/circuit-breaker.md)<br>
    2.6 [Bulkhead](docs/system-design/reliability-resilience/bulkhead.md)<br>
-   2.7 [Graceful Degradation](docs/system-design/reliability-resilience/graceful-degradation.md)<br>
-   2.8 [Distributed Coordination](docs/system-design/reliability-resilience/distributed-coordination.md)<br>
-   2.9 [Health Checks](docs/system-design/reliability-resilience/health-checks.md)
+   2.7 [Resource Management](docs/system-design/reliability-resilience/resource-management.md)<br>
+   2.8 [Graceful Degradation](docs/system-design/reliability-resilience/graceful-degradation.md)<br>
+   2.9 [Distributed Coordination](docs/system-design/reliability-resilience/distributed-coordination.md)<br>
+   2.10 [Health Checks](docs/system-design/reliability-resilience/health-checks.md)
 3. [**Observability**: Metrics, Logs, Tracing](docs/system-design/observability.md)
 4. **Fault Tolerance & Recovery**<br>
-   4.1 [Leader Election](docs/system-design/fault-tolerance-and-recovery/leader-election.md)<br>
-   4.2 [Data Consistency](docs/system-design/fault-tolerance-and-recovery/data-consistency.md)<br>
-   4.3 [Distributed Transactions](docs/system-design/fault-tolerance-and-recovery/distributed-transactions.md)<br>
-   4.4 [PITR / Backup / Restore](docs/system-design/fault-tolerance-and-recovery/pitr-backup-restore.md)<br>
+   4.1 [PITR / Backup / Restore](docs/system-design/fault-tolerance-and-recovery/pitr-backup-restore.md)<br>
+5. [High-Throughput System Design](docs/system-design/high-throughput-system-design.md)
 
 ### Management
 1. [Task estimation](docs/management/task-estimation.md)
