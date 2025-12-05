@@ -1,6 +1,5 @@
 # High-Throughput System Design
 
-
 ---
 
 High-Throughput — это не про один сервис.
@@ -32,18 +31,6 @@ High-Throughput — это не про один сервис.
 * compression = lz4/snappy
 * acks = 1 или all (зависит от SLA)
 * partitions: много (по формуле load / target throughput per partition)
-
----
-
-## DB
-
-* 95% write → Kafka → batch flush → storage
-* 5% read → Hazelcast near-cache → DB
-
-При высокой write load синхронная запись в БД для каждого входящего сообщения приведёт к:
-* огромной number of transactions per second на DB (не рассчитано),
-* lock contention, fsync overhead, latency spikes,
-* вертикальному масштабированию, которое дорого и плохо масштабируется.
 
 ---
 

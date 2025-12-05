@@ -48,6 +48,9 @@
 5. [Spring AOP](docs/spring/spring-aop.md)
 6. [Transactions in Spring](docs/spring/transactional.md)
 
+### Современные фичи Java
+1. [GraalVM](docs/modern-java/graal-vm.md)
+
 ### Tests
 []()
 
@@ -97,14 +100,22 @@
 2. [Sorting](docs/algorithms/sotring-alg.md)
 3. [Search types](docs/algorithms/search-types.md)
 
-### DevOps & Cloud
-1. [Dockerfile networks](docs/devops-cloud/dockerfile-networks.md)
-2. [Deployment strategies](docs/devops-cloud/deployment-strategies.md)
+### DevOps
+1. [Dockerfile networks](docs/devops/dockerfile-networks.md)
+2. [Deployment strategies](docs/devops/deployment-strategies.md)
+
+### Cloud
+1. **AWS**<br>
+   1.1 [Lambda](docs/cloud/lambda.md)<br>
+   1.2 [DynamoDB](docs/cloud/dynamo-db.md)
 
 ### Networks
 1. [IP, DNS and Networks](docs/networks/ip-dns-networks.md)
 2. [Reverse proxy server](docs/networks/reverse-proxy-server.md)
 3. [RESTful, gRPC](docs/networks/restful-grpc.md)
+
+### Performance
+1. [JVM/Java Performance Optimization](docs/performance/jvm-java-performance-optimization.md)
 
 ### System Design
 1. [**Scalability**](docs/system-design/scalability/scalability.md)<br>
@@ -130,9 +141,12 @@
    4.1 [PITR / Backup / Restore](docs/system-design/fault-tolerance-and-recovery/pitr-backup-restore.md)<br>
 5. [High-Throughput System Design](docs/system-design/high-throughput-system-design.md)
 
-### Management
+### Management и инженерные навыки
 1. [Task estimation](docs/management/task-estimation.md)
 2. [How to Lead a Team](docs/management/lead-team.md)
+3. [Надежность и эксплуатация: SLO/SLA/SLI, постмортемы]()
+4. [Безопасная разработка (SSDLC): угрозы и гайдлайны]()
+5. [RFC/ADR‑процессы и оценка рисков]()
 
 ### Architecture of computer systems
 _Source:_ [Carnegie Mellon University Undergraduate Computer Architecture.](https://www.youtube.com/playlist?list=PL5PHm2jkkXmi5CxxI7b3JCL1TWybTDtKq)
