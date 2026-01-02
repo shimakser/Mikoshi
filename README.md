@@ -76,6 +76,7 @@
 1. [JWT](docs/security/jwt.md)
 2. [OAuth2](docs/security/oauth2.md)
 3. [HTTPS](docs/security/https.md)
+4. [CORS](docs/security/cors.md)
 
 ### Message brokers
 1. [Apache Kafka](docs/message-brokers/kafka.md)
@@ -132,21 +133,28 @@
    2.4 [Rate Limiting](docs/system-design/reliability-resilience/rate-limiting.md)<br>
    2.5 [Circuit Breaker](docs/system-design/reliability-resilience/circuit-breaker.md)<br>
    2.6 [Bulkhead](docs/system-design/reliability-resilience/bulkhead.md)<br>
-   2.7 [Resource Management](docs/system-design/reliability-resilience/resource-management.md)<br>
-   2.8 [Graceful Degradation](docs/system-design/reliability-resilience/graceful-degradation.md)<br>
-   2.9 [Distributed Coordination](docs/system-design/reliability-resilience/distributed-coordination.md)<br>
-   2.10 [Health Checks](docs/system-design/reliability-resilience/health-checks.md)
+   2.7 [Graceful Degradation](docs/system-design/reliability-resilience/graceful-degradation.md)<br>
+   2.8 [Distributed Coordination](docs/system-design/reliability-resilience/distributed-coordination.md)<br>
+   2.9 [Health Checks](docs/system-design/reliability-resilience/health-checks.md)
 3. [**Observability**: Metrics, Logs, Tracing](docs/system-design/observability.md)
 4. **Fault Tolerance & Recovery**<br>
-   4.1 [PITR / Backup / Restore](docs/system-design/fault-tolerance-and-recovery/pitr-backup-restore.md)<br>
+   4.1 [Failure Models]()
+   4.2 [Failure Detection & Recovery Triggers]()
+   4.3 [Failover Strategies (Recovery Phase)]()
+   4.4 [Data Recovery & Post-Failure Consistency]()
+   4.5 [PITR (Point-In-Time Recovery)]()
+   4.6 [Backup & Restore Strategies]()
+   4.7 [Disaster Recovery (DR)]()
+   4.8 [RPO / RTO]()
+   4.9 [Self-Healing & Stabilization After Failure]()
 5. [High-Throughput System Design](docs/system-design/high-throughput-system-design.md)
 
 ### Management и инженерные навыки
 1. [Task estimation](docs/management/task-estimation.md)
 2. [How to Lead a Team](docs/management/lead-team.md)
-3. [Надежность и эксплуатация: SLO/SLA/SLI, постмортемы]()
-4. [Безопасная разработка (SSDLC): угрозы и гайдлайны]()
-5. [RFC/ADR‑процессы и оценка рисков]()
+3. [Надежность и эксплуатация: SLO/SLA/SLI, постмортемы](docs/management/slo-sla-sli.md)
+4. [Безопасная разработка (SSDLC): угрозы и гайдлайны](docs/management/ssdlc.md)
+5. [RFC/ADR‑процессы](docs/management/rfc-adr.md)
 
 ### Architecture of computer systems
 _Source:_ [Carnegie Mellon University Undergraduate Computer Architecture.](https://www.youtube.com/playlist?list=PL5PHm2jkkXmi5CxxI7b3JCL1TWybTDtKq)
