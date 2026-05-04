@@ -74,7 +74,7 @@
       3. [Apache Casandra](docs/db/apache-casandra.md)
 
 ### Security
-1. [JWT](docs/security/jwt.md)
+1. [JWT, JWKS](docs/security/jwt-jwks.md)
 2. [OAuth2](docs/security/oauth2.md)
 3. [HTTPS](docs/security/https.md)
 4. [Security Filter Chain Internals](docs/security/security-filter-chain-internals.md)
@@ -114,8 +114,10 @@
 
 ### Cloud
 1. **AWS**<br>
-   1.1 [Lambda](docs/cloud/lambda.md)<br>
-   1.2 [DynamoDB](docs/cloud/dynamo-db.md)
+   1.1 [General concepts](docs/cloud/general-concepts.md)<br>
+   1.2 [Lambda](docs/cloud/lambda.md)<br>
+   1.3 [DynamoDB](docs/cloud/dynamo-db.md)<br>
+   1.4 [SQS, SNS](docs/cloud/sqs-sns.md)
 
 ### Networks
 1. [IP, DNS and Networks](docs/networks/ip-dns-networks.md)
