@@ -67,6 +67,7 @@
       4. [Indexes](docs/db/indexes.md)
       5. [Optimistic & Pessimistic Locking](docs/db/optimistic-pisimistic-locking.md) 
       6. [MVCC, Vacuum](docs/db/mvcc-vacuum.md) 
+      7. [Views](docs/db/views.md)
     #### NoSQL Databases
       1. [NoSQL, BASE](docs/db/nosql.md)
       2. [MongoDB](docs/db/mongodb.md)
@@ -76,7 +77,13 @@
 1. [JWT](docs/security/jwt.md)
 2. [OAuth2](docs/security/oauth2.md)
 3. [HTTPS](docs/security/https.md)
-4. [CORS](docs/security/cors.md)
+4. [Security Filter Chain Internals](docs/security/security-filter-chain-internals.md)
+5. [CORS](docs/security/cors.md)
+6. [CSRF](docs/security/csrf.md) 
+
+### Project assembly automation system
+1. [Gradle](docs/project-assembly-automation-system/gradle.md)
+2. Maven
 
 ### Message brokers
 1. [Apache Kafka](docs/message-brokers/kafka.md)
@@ -138,15 +145,15 @@
    2.9 [Health Checks](docs/system-design/reliability-resilience/health-checks.md)
 3. [**Observability**: Metrics, Logs, Tracing](docs/system-design/observability.md)
 4. **Fault Tolerance & Recovery**<br>
-   4.1 [Failure Models]()
-   4.2 [Failure Detection & Recovery Triggers]()
-   4.3 [Failover Strategies (Recovery Phase)]()
-   4.4 [Data Recovery & Post-Failure Consistency]()
-   4.5 [PITR (Point-In-Time Recovery)]()
-   4.6 [Backup & Restore Strategies]()
-   4.7 [Disaster Recovery (DR)]()
-   4.8 [RPO / RTO]()
-   4.9 [Self-Healing & Stabilization After Failure]()
+   4.1 [Failure Models]()<br>
+   4.2 [Failure Detection & Recovery Triggers]()<br>
+   4.3 [Failover Strategies (Recovery Phase)]()<br>
+   4.4 [Data Recovery & Post-Failure Consistency]()<br>
+   4.5 [PITR (Point-In-Time Recovery)]()<br>
+   4.6 [Backup & Restore Strategies]()<br>
+   4.7 [Disaster Recovery (DR)]()<br>
+   4.8 [RPO / RTO]()<br>
+   4.9 [Self-Healing & Stabilization After Failure]()<br>
 5. [High-Throughput System Design](docs/system-design/high-throughput-system-design.md)
 
 ### Management и инженерные навыки
